@@ -1,0 +1,39 @@
+print ("Bienvenue sur le célèbre jeu du juste prix,tu dois deviner le prix auquel je pense, il se situe entre 1 et 100")
+
+import random 
+import time
+import tkinter
+import threading
+
+def verification(test, valeur):
+    if test > valeur: 
+        print("trop haut")
+    elif test < valeur:
+        print("trop bas")
+        
+def timer(temps):
+    while temps > 0:
+        time.sleep(1)
+        temps -= 1
+    print("plus de temps , perdu !")
+
+prix = random.randint(0, 100)
+
+restant = 5
+essai = -1
+temps = 60
+
+t = threading.Thread(target=timer , args=[temps])
+t.start()
+    
+while restant > 0 and essai != prix: 
+    essai = input("Essaie de deviner le juste prix : ")
+    essai = int(essai)
+    verification(essai, prix) 
+    restant -= 1
+t.join
+    
+if essai == prix:
+    print("bien joué !")
+elif restant == 0:
+    print("trop d'essais , perdu !")
