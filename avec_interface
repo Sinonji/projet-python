@@ -1,0 +1,63 @@
+import random 
+import time
+import tkinter
+import threading
+
+prix = random.randint(0, 100)
+
+restant = 5
+essai = -1
+temps = 60
+tampon =" "
+
+root = tkinter.Tk()
+
+texte = tkinter.Label(text = "Bienvenue sur le célèbre jeu du juste prix,tu dois deviner le prix auquel je pense, il se situe entre 1 et 100")
+texte.grid (column = 1, row = 0)
+
+intitule = tkinter.Label()
+intitule.grid (column = 1, row = 1)
+
+saisie = tkinter.Entry()
+saisie.grid (column = 1, row = 2)
+
+validation = tkinter.Button(text = "Valider")
+validation.grid(column = 2, row = 3)
+
+nb_essai = tkinter.Label(text = restant)
+nb_essai.grid (column = 2, row = 0)
+
+tp_rest = tkinter.Label(text = temps)
+tp_rest.grid (column = 0, row = 0)
+
+def verification(test, valeur):
+    if test > valeur: 
+        intitule.config(text ="C'est moins")
+    elif test < valeur:
+        intitule.config(text ="C'est plus")
+        
+def timer(temps):
+    while temps > 0:
+        time.sleep(1)
+        temps -= 1
+        tp_rest.config(text = temps)
+    intitule.config(text ="plus de temps , C'est perdu")
+    
+t = threading.Thread(target=timer , args=[temps])
+t.start()
+
+while restant > 0 and essai != prix:
+    nb_essai.config (text = restant)
+    if validation:
+        tampon = saisie.get()
+        essai = int(tampon)
+        verification(essai, prix)
+        restant -= 1        
+    
+
+t.join
+    
+if essai == prix:
+    intitule.config(text ="C'est gagné")
+elif restant == 0:
+    intitule.config(text ="C'est perdu")
