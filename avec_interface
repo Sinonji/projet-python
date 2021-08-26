@@ -8,9 +8,9 @@ prix = random.randint(0, 100)
 restant = 5
 essai = -1
 temps = 60
-tampon =" "
 
 root = tkinter.Tk()
+root.configure(bg = green)
 
 texte = tkinter.Label(text = "Bienvenue sur le célèbre jeu du juste prix,tu dois deviner le prix auquel je pense, il se situe entre 1 et 100")
 texte.grid (column = 1, row = 0)
@@ -48,9 +48,8 @@ t.start()
 
 while restant > 0 and essai != prix:
     nb_essai.config (text = restant)
-    if validation:
-        tampon = saisie.get()
-        essai = int(tampon)
+    if validation
+        essai = int(saisie.get())
         verification(essai, prix)
         restant -= 1        
     
